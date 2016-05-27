@@ -24,59 +24,68 @@ import java.util.Collections;
 
 public class Dependency {
 
-    private String fileName;
-    private String filePath;
-    private String md5Hash;
-    private String sha1Hash;
-    private Collection<Evidence> evidenceCollected = Collections.emptyList();
-    private Collection<Vulnerability> vulnerabilities = Collections.emptyList();
+	private String fileName;
+	private String filePath;
+	private String md5Hash;
+	private String sha1Hash;
+	private License license;
+	private Collection<Evidence> evidenceCollected = Collections.emptyList();
+	private Collection<Vulnerability> vulnerabilities = Collections.emptyList();
 
-    public String getFileName() {
-        return fileName;
-    }
+	public String getFileName() {
+		return fileName;
+	}
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
+	public void setFileName(final String fileName) {
+		this.fileName = fileName;
+	}
 
-    public String getFilePath() {
-        return filePath;
-    }
+	public String getFilePath() {
+		return filePath;
+	}
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
+	public void setFilePath(final String filePath) {
+		this.filePath = filePath;
+	}
 
-    public String getMd5Hash() {
-        return md5Hash;
-    }
+	public String getMd5Hash() {
+		return md5Hash;
+	}
 
-    public void setMd5Hash(String md5Hash) {
-        this.md5Hash = md5Hash;
-    }
+	public void setMd5Hash(final String md5Hash) {
+		this.md5Hash = md5Hash;
+	}
 
-    public String getSha1Hash() {
-        return sha1Hash;
-    }
+	public String getSha1Hash() {
+		return sha1Hash;
+	}
 
-    public void setSha1Hash(String sha1Hash) {
-        this.sha1Hash = sha1Hash;
-    }
+	public void setSha1Hash(final String sha1Hash) {
+		this.sha1Hash = sha1Hash;
+	}
 
-    public Collection<Evidence> getEvidenceCollected() {
-        return evidenceCollected;
-    }
+	public Collection<Evidence> getEvidenceCollected() {
+		return evidenceCollected;
+	}
 
-    public void setEvidenceCollected(Collection<Evidence> evidenceCollected) {
-        this.evidenceCollected = evidenceCollected;
-    }
+	public void setEvidenceCollected(final Collection<Evidence> evidenceCollected) {
+		this.evidenceCollected = evidenceCollected;
+	}
 
-    public Collection<Vulnerability> getVulnerabilities() {
-        return vulnerabilities;
-    }
+	public Collection<Vulnerability> getVulnerabilities() {
+		return vulnerabilities;
+	}
 
-    public void setVulnerabilities(Collection<Vulnerability> vulnerabilities) {
-        this.vulnerabilities = vulnerabilities;
-    }
+	public void setVulnerabilities(final Collection<Vulnerability> vulnerabilities) {
+		this.vulnerabilities = vulnerabilities;
+	}
+
+	public License getLicense() {
+		return license;
+	}
+
+	public void setLicense(final License license) {
+		this.license = license;
+	}
 
 }

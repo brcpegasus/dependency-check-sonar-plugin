@@ -19,128 +19,81 @@
  */
 package org.sonar.dependencycheck.base;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.sonar.api.measures.Metric;
 import org.sonar.api.measures.Metrics;
 import org.sonar.api.measures.SumChildValuesFormula;
 
-import java.util.Arrays;
-import java.util.List;
-
 public final class DependencyCheckMetrics implements Metrics {
 
-    public static final String DOMAIN = "OWASP-Dependency-Check";
+	public static final String DOMAIN = "OWASP-Dependency-Check";
 
-    public static final String INHERITED_RISK_SCORE_KEY = "inherited_risk_score";
-    public static final String VULNERABLE_COMPONENT_RATIO_KEY = "vulnerable_component_ratio";
+	public static final String INHERITED_RISK_SCORE_KEY = "inherited_risk_score";
+	public static final String VULNERABLE_COMPONENT_RATIO_KEY = "vulnerable_component_ratio";
 
-    public static final String TOTAL_DEPENDENCIES_KEY = "total_dependencies";
-    public static final String VULNERABLE_DEPENDENCIES_KEY = "vulnerable_dependencies";
-    public static final String TOTAL_VULNERABILITIES_KEY = "total_vulnerabilities";
-    public static final String HIGH_SEVERITY_VULNS_KEY = "high_severity_vulns";
-    public static final String MEDIUM_SEVERITY_VULNS_KEY = "medium_severity_vulns";
-    public static final String LOW_SEVERITY_VULNS_KEY = "low_severity_vulns";
+	public static final String TOTAL_DEPENDENCIES_KEY = "total_dependencies";
+	public static final String VULNERABLE_DEPENDENCIES_KEY = "vulnerable_dependencies";
+	public static final String TOTAL_VULNERABILITIES_KEY = "total_vulnerabilities";
+	public static final String HIGH_SEVERITY_VULNS_KEY = "high_severity_vulns";
+	public static final String MEDIUM_SEVERITY_VULNS_KEY = "medium_severity_vulns";
+	public static final String LOW_SEVERITY_VULNS_KEY = "low_severity_vulns";
 
+	public static final String HIGH_SEVERITY_LICENSE_KEY = "high_severity_license";
+	public static final String MEDIUM_SEVERITY_LICENSE_KEY = "medium_severity_license";
+	public static final String LOW_SEVERITY_LICENSE_KEY = "weak_severity_license";
 
-    public static double inheritedRiskScore(int high, int medium, int low) {
-        return (double) ((high * 5) + (medium * 3) + (low * 1));
-    }
+	public static double inheritedRiskScore(final int high, final int medium, final int low) {
+		return (high * 5) + (medium * 3) + (low * 1);
+	}
 
-    public static double vulnerableComponentRatio(int vulnerabilities, int vulnerableComponents) {
-        double ratio = 0.0;
-        if(vulnerableComponents > 0) {
-            ratio = (double) vulnerabilities / vulnerableComponents;
-        }
-        return ratio;
-    }
+	public static double vulnerableComponentRatio(final int vulnerabilities, final int vulnerableComponents) {
+		double ratio = 0.0;
+		if (vulnerableComponents > 0) {
+			ratio = (double) vulnerabilities / vulnerableComponents;
+		}
+		return ratio;
+	}
 
-    public static final Metric INHERITED_RISK_SCORE = new Metric.Builder(DependencyCheckMetrics.INHERITED_RISK_SCORE_KEY, "Inherited Risk Score", Metric.ValueType.INT)
-            .setDescription("Inherited Risk Score")
-            .setDirection(Metric.DIRECTION_BETTER)
-            .setQualitative(true)
-            .setDomain(DependencyCheckMetrics.DOMAIN)
-            .setFormula(new SumChildValuesFormula(false))
-            .setBestValue(0.0)
-            .create();
+	public static final Metric INHERITED_RISK_SCORE = new Metric.Builder(DependencyCheckMetrics.INHERITED_RISK_SCORE_KEY, "Inherited Risk Score",
+			Metric.ValueType.INT).setDescription("Inherited Risk Score").setDirection(Metric.DIRECTION_BETTER).setQualitative(true)
+			.setDomain(DependencyCheckMetrics.DOMAIN).setFormula(new SumChildValuesFormula(false)).setBestValue(0.0).create();
 
-    public static final Metric VULNERABLE_COMPONENT_RATIO = new Metric.Builder(DependencyCheckMetrics.VULNERABLE_COMPONENT_RATIO_KEY, "Vulnerable Component Ratio", Metric.ValueType.PERCENT)
-            .setDescription("Vulnerable Component Ratio")
-            .setDirection(Metric.DIRECTION_BETTER)
-            .setQualitative(true)
-            .setDomain(DependencyCheckMetrics.DOMAIN)
-            .setFormula(new SumChildValuesFormula(false))
-            .setBestValue(0.0)
-            .create();
+	public static final Metric VULNERABLE_COMPONENT_RATIO = new Metric.Builder(DependencyCheckMetrics.VULNERABLE_COMPONENT_RATIO_KEY,
+			"Vulnerable Component Ratio", Metric.ValueType.PERCENT).setDescription("Vulnerable Component Ratio")
+			.setDirection(Metric.DIRECTION_BETTER).setQualitative(true).setDomain(DependencyCheckMetrics.DOMAIN)
+			.setFormula(new SumChildValuesFormula(false)).setBestValue(0.0).create();
 
-    public static final Metric HIGH_SEVERITY_VULNS = new Metric.Builder(HIGH_SEVERITY_VULNS_KEY, "High Severity Vulnerabilities", Metric.ValueType.INT)
-            .setDescription("High Severity Vulnerabilities")
-            .setDirection(Metric.DIRECTION_WORST)
-            .setQualitative(false)
-            .setDomain(DependencyCheckMetrics.DOMAIN)
-            .setFormula(new SumChildValuesFormula(false))
-            .setBestValue(0.0)
-            .setHidden(false)
-            .create();
+	public static final Metric HIGH_SEVERITY_VULNS = new Metric.Builder(HIGH_SEVERITY_VULNS_KEY, "High Severity Vulnerabilities",
+			Metric.ValueType.INT).setDescription("High Severity Vulnerabilities").setDirection(Metric.DIRECTION_WORST).setQualitative(false)
+			.setDomain(DependencyCheckMetrics.DOMAIN).setFormula(new SumChildValuesFormula(false)).setBestValue(0.0).setHidden(false).create();
 
-    public static final Metric MEDIUM_SEVERITY_VULNS = new Metric.Builder(MEDIUM_SEVERITY_VULNS_KEY, "Medium Severity Vulnerabilities", Metric.ValueType.INT)
-            .setDescription("Medium Severity Vulnerabilities")
-            .setDirection(Metric.DIRECTION_WORST)
-            .setQualitative(false)
-            .setDomain(DependencyCheckMetrics.DOMAIN)
-            .setFormula(new SumChildValuesFormula(false))
-            .setBestValue(0.0)
-            .setHidden(false)
-            .create();
+	public static final Metric MEDIUM_SEVERITY_VULNS = new Metric.Builder(MEDIUM_SEVERITY_VULNS_KEY, "Medium Severity Vulnerabilities",
+			Metric.ValueType.INT).setDescription("Medium Severity Vulnerabilities").setDirection(Metric.DIRECTION_WORST).setQualitative(false)
+			.setDomain(DependencyCheckMetrics.DOMAIN).setFormula(new SumChildValuesFormula(false)).setBestValue(0.0).setHidden(false).create();
 
-    public static final Metric LOW_SEVERITY_VULNS = new Metric.Builder(LOW_SEVERITY_VULNS_KEY, "Low Severity Vulnerabilities", Metric.ValueType.INT)
-            .setDescription("Low Severity Vulnerabilities")
-            .setDirection(Metric.DIRECTION_WORST)
-            .setQualitative(false)
-            .setDomain(DependencyCheckMetrics.DOMAIN)
-            .setFormula(new SumChildValuesFormula(false))
-            .setBestValue(0.0)
-            .setHidden(false)
-            .create();
+	public static final Metric LOW_SEVERITY_VULNS = new Metric.Builder(LOW_SEVERITY_VULNS_KEY, "Low Severity Vulnerabilities", Metric.ValueType.INT)
+			.setDescription("Low Severity Vulnerabilities").setDirection(Metric.DIRECTION_WORST).setQualitative(false)
+			.setDomain(DependencyCheckMetrics.DOMAIN).setFormula(new SumChildValuesFormula(false)).setBestValue(0.0).setHidden(false).create();
 
-    public static final Metric TOTAL_DEPENDENCIES = new Metric.Builder(TOTAL_DEPENDENCIES_KEY, "Total Dependencies", Metric.ValueType.INT)
-            .setDescription("Total Dependencies")
-            .setDirection(Metric.DIRECTION_WORST)
-            .setQualitative(false)
-            .setDomain(DependencyCheckMetrics.DOMAIN)
-            .setFormula(new SumChildValuesFormula(false))
-            .setHidden(false)
-            .create();
+	public static final Metric TOTAL_DEPENDENCIES = new Metric.Builder(TOTAL_DEPENDENCIES_KEY, "Total Dependencies", Metric.ValueType.INT)
+			.setDescription("Total Dependencies").setDirection(Metric.DIRECTION_WORST).setQualitative(false).setDomain(DependencyCheckMetrics.DOMAIN)
+			.setFormula(new SumChildValuesFormula(false)).setHidden(false).create();
 
-    public static final Metric VULNERABLE_DEPENDENCIES = new Metric.Builder(VULNERABLE_DEPENDENCIES_KEY, "Vulnerable Dependencies", Metric.ValueType.INT)
-            .setDescription("Vulnerable Dependencies")
-            .setDirection(Metric.DIRECTION_WORST)
-            .setQualitative(false)
-            .setDomain(DependencyCheckMetrics.DOMAIN)
-            .setFormula(new SumChildValuesFormula(false))
-            .setBestValue(0.0)
-            .setHidden(false)
-            .create();
+	public static final Metric VULNERABLE_DEPENDENCIES = new Metric.Builder(VULNERABLE_DEPENDENCIES_KEY, "Vulnerable Dependencies",
+			Metric.ValueType.INT).setDescription("Vulnerable Dependencies").setDirection(Metric.DIRECTION_WORST).setQualitative(false)
+			.setDomain(DependencyCheckMetrics.DOMAIN).setFormula(new SumChildValuesFormula(false)).setBestValue(0.0).setHidden(false).create();
 
-    public static final Metric TOTAL_VULNERABILITIES = new Metric.Builder(TOTAL_VULNERABILITIES_KEY, "Total Vulnerabilities", Metric.ValueType.INT)
-            .setDescription("Total Vulnerabilities")
-            .setDirection(Metric.DIRECTION_WORST)
-            .setQualitative(false)
-            .setDomain(DependencyCheckMetrics.DOMAIN)
-            .setFormula(new SumChildValuesFormula(false))
-            .setBestValue(0.0)
-            .setHidden(false)
-            .create();
+	public static final Metric TOTAL_VULNERABILITIES = new Metric.Builder(TOTAL_VULNERABILITIES_KEY, "Total Vulnerabilities", Metric.ValueType.INT)
+			.setDescription("Total Vulnerabilities").setDirection(Metric.DIRECTION_WORST).setQualitative(false)
+			.setDomain(DependencyCheckMetrics.DOMAIN).setFormula(new SumChildValuesFormula(false)).setBestValue(0.0).setHidden(false).create();
 
-    @Override
-    public List<Metric> getMetrics() {
-        return Arrays.asList(
-                DependencyCheckMetrics.INHERITED_RISK_SCORE,
-                DependencyCheckMetrics.VULNERABLE_COMPONENT_RATIO,
-                DependencyCheckMetrics.HIGH_SEVERITY_VULNS,
-                DependencyCheckMetrics.MEDIUM_SEVERITY_VULNS,
-                DependencyCheckMetrics.LOW_SEVERITY_VULNS,
-                DependencyCheckMetrics.TOTAL_DEPENDENCIES,
-                DependencyCheckMetrics.VULNERABLE_DEPENDENCIES,
-                DependencyCheckMetrics.TOTAL_VULNERABILITIES
-        );
-    }
+	@Override
+	public List<Metric> getMetrics() {
+		return Arrays.asList(DependencyCheckMetrics.INHERITED_RISK_SCORE, DependencyCheckMetrics.VULNERABLE_COMPONENT_RATIO,
+				DependencyCheckMetrics.HIGH_SEVERITY_VULNS, DependencyCheckMetrics.MEDIUM_SEVERITY_VULNS, DependencyCheckMetrics.LOW_SEVERITY_VULNS,
+				DependencyCheckMetrics.TOTAL_DEPENDENCIES, DependencyCheckMetrics.VULNERABLE_DEPENDENCIES,
+				DependencyCheckMetrics.TOTAL_VULNERABILITIES);
+	}
 }
